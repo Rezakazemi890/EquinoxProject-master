@@ -46,7 +46,6 @@ namespace Equinox.Application.Services
             var registerCommand = _mapper.Map<RegisterNewCustomerCommand>(customerViewModel);
             return await _mediator.SendCommand(registerCommand);
         }
-
         public async Task<ValidationResult> Update(CustomerViewModel customerViewModel)
         {
             var updateCommand = _mapper.Map<UpdateCustomerCommand>(customerViewModel);
