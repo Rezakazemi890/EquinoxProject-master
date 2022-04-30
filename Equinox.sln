@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equinox.Infra.CrossCutting.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equinox.Infra.CrossCutting.IoC", "src\Equinox.Infra.CrossCutting.IoC\Equinox.Infra.CrossCutting.IoC.csproj", "{B3000AD2-5EAA-49A2-8FC4-10DF329B15B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equinox.Core.Test", "Test\Equinox.Core.Test.csproj", "{90EB11DB-3983-4755-8F2E-9188FDC93B14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{B3000AD2-5EAA-49A2-8FC4-10DF329B15B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3000AD2-5EAA-49A2-8FC4-10DF329B15B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3000AD2-5EAA-49A2-8FC4-10DF329B15B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90EB11DB-3983-4755-8F2E-9188FDC93B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90EB11DB-3983-4755-8F2E-9188FDC93B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90EB11DB-3983-4755-8F2E-9188FDC93B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90EB11DB-3983-4755-8F2E-9188FDC93B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,33 +2,11 @@
 
 # FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 # WORKDIR /app
-# EXPOSE 82
-# EXPOSE 443
-
-# FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-# WORKDIR /src
-# COPY ["Equinox.Services.Api.csproj", "Equinox.Services.Api/"]
-# RUN dotnet restore "Equinox.Services.Api/Equinox.Services.Api.csproj"
-# COPY . .
-# WORKDIR "/src/Equinox.Services.Api"
-# RUN dotnet build "Equinox.Services.Api.csproj" -c Release -o /app/build
-
-# FROM build AS publish
-# RUN dotnet publish "Equinox.Services.Api.csproj" -c Release -o /app/publish
-
-# FROM base AS final
-# WORKDIR /app
-# COPY --from=publish /app/publish .
-# ENTRYPOINT ["dotnet", "Equinox.Services.Api.dll"]
-
-##################################################################################NEW
-# FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
-# WORKDIR /app
 
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-EXPOSE 84
+EXPOSE 82
 EXPOSE 443
 
 # COPY *.sln .
@@ -39,13 +17,12 @@ EXPOSE 443
 # COPY ["./src/Equinox.Infra.CrossCutting.Identity/Equinox.Infra.CrossCutting.Identity.csproj", "src/Equinox.Infra.CrossCutting.Identity/"]
 # COPY ["./src/Equinox.Infra.CrossCutting.IoC/Equinox.Infra.CrossCutting.IoC.csproj", "src/Equinox.Infra.CrossCutting.IoC/"]
 # COPY ["./src/Equinox.Application/Equinox.Application.csproj", "src/Equinox.Application/"]
-# COPY ["./Equinox.Services.Api.csproj", "src/Equinox.Services.Api/"]
+COPY ["./src/Equinox.Services.Api/Equinox.Services.Api.csproj", "src/Equinox.Services.Api/"]
 # COPY ["./src/Equinox.UI.Web/Equinox.UI.Web.csproj", "src/Equinox.UI.Web/"]
 
 # run restore over API project - this pulls restore over the dependent projects as well
 # RUN dotnet restore "./src/Equinox.Services.Api"
-COPY ["Equinox.Services.Api.csproj", "Equinox.Services.Api/"]
-RUN dotnet restore "Equinox.Services.Api/Equinox.Services.Api.csproj"
+RUN dotnet restore "./src/Equinox.Services.Api/Equinox.Services.Api.csproj"
 
 COPY . .
 
