@@ -1,6 +1,6 @@
 using System;
 
-namespace Equinox.Core.Test;
+namespace Equinox.Core.Test.Model;
 
 public class NewsRequest
 {
