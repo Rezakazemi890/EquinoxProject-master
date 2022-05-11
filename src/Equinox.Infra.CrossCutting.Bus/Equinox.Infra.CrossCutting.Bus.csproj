@@ -1,15 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="mediatr" Version="9.0.0" />
+		<ProjectReference Include="..\Equinox.Domain.Core\Equinox.Domain.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Equinox.Domain.Core\Equinox.Domain.Core.csproj" />
+	  <PackageReference Include="mediatr" Version="10.0.1" />
 	</ItemGroup>
 
 </Project>

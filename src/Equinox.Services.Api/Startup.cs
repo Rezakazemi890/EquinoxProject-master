@@ -17,6 +17,7 @@ namespace Equinox.Services.Api
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
+                .AddUserSecrets("b543be42-f7ab-48b6-b633-72d6fb529fb7")
                 .AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
 
