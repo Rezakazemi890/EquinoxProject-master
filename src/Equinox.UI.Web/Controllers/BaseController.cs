@@ -11,7 +11,7 @@ namespace Equinox.UI.Web.Controllers
 
         protected bool ResponseHasErrors(ValidationResult result)
         {
-            if (result == null || result.IsValid) return false;
+            if (result?.IsValid != false) return false;
 
             foreach (var error in result.Errors)
             {
@@ -28,7 +28,7 @@ namespace Equinox.UI.Web.Controllers
 
         public bool IsValidOperation()
         {
-            return !_errors.Any();
+            return _errors.Count == 0;
         }
     }
 }

@@ -16,17 +16,19 @@ namespace Equinox.Core.Test.Handler
 
         public NewsServiceResult GetNews(NewsRequest newsRequest)
         {
-            if(newsRequest is null)
+            if (newsRequest is null)
             {
                 throw new ArgumentNullException(nameof(newsRequest));
             }
-            
-            _newsService.Save(new News{
-                Subject = newsRequest.Subject,
-                FromDate = newsRequest.FromDate,
-                SortBy = newsRequest.SortBy
-            });
 
+            _newsService.Save(CreateNewsObject<News>(newsRequest));
+
+            return CreateNewsObject<NewsServiceResult>(newsRequest);
+        }
+
+        private static NewsServiceResult CreateNewsObject<NewsServiceResult>(NewsRequest newsRequest)
+        where NewsServiceResult : NewsServiceBase, new()
+        {
             return new NewsServiceResult
             {
                 Subject = newsRequest.Subject,

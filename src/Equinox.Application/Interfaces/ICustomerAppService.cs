@@ -11,7 +11,7 @@ namespace Equinox.Application.Interfaces
     {
         Task<IEnumerable<CustomerViewModel>> GetAll();
         Task<CustomerViewModel> GetById(Guid id);
-        
+
         Task<ValidationResult> Register(CustomerViewModel customerViewModel);
         Task<ValidationResult> Update(CustomerViewModel customerViewModel);
         Task<ValidationResult> Remove(Guid id);

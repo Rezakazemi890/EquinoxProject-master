@@ -15,5 +15,6 @@ namespace Equinox.Domain.Interfaces
         void Add(Customer customer);
         void Update(Customer customer);
         void Remove(Customer customer);
+        void Dispose();
     }
 }

@@ -47,7 +47,7 @@ namespace Equinox.Services.Api.Controllers
 
         protected bool IsOperationValid()
         {
-            return !_errors.Any();
+            return _errors.Count == 0;
         }
 
         protected void AddError(string erro)

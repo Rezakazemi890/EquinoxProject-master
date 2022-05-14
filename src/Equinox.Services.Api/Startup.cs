@@ -81,10 +81,7 @@ namespace Equinox.Services.Api
             // NetDevPack.Identity dependency
             app.UseAuthConfiguration();
             app.UseSentryTracing();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             app.UseSwaggerSetup();
         }

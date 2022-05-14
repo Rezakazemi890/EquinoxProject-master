@@ -41,13 +41,12 @@ public class NewsRequestHandlerTest
         Result.Subject.ShouldBe(_newsRequest.Subject);
         Result.FromDate.ShouldBe(_newsRequest.FromDate);
         Result.SortBy.ShouldBe(_newsRequest.SortBy);
-
     }
 
     [Fact]
     public void Should_throw_Exception_For_Null_Request()
     {
-        var exception = Should.Throw<ArgumentException>(() => _handler.GetNews(null));
+        var exception = Should.Throw<ArgumentException>(() => _handler.GetNews(null!));
 
         exception.ParamName.ShouldBe("newsRequest");
     }
@@ -55,12 +54,9 @@ public class NewsRequestHandlerTest
     [Fact]
     public void Should_Save_News_Request()
     {
-        News news = null;
+        News? news = null;
         _newsServiceMock.Setup(x => x.Save(It.IsAny<News>()))
-        .Callback<News>(y =>
-        {
-            news = y;
-        });
+        .Callback<News>(y => news = y);
         _handler.GetNews(_newsRequest);
 
         _newsServiceMock.Verify(x => x.Save(It.IsAny<News>()), Times.Once);

@@ -6,7 +6,6 @@ namespace Equinox.UI.Web.Configurations
 {
     public static class IdentityConfig
     {
-
         public static void AddSocialAuthenticationConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             if (services == null) throw new ArgumentNullException(nameof(services));

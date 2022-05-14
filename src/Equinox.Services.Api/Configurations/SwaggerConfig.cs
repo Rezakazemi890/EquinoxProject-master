@@ -46,7 +46,6 @@ namespace Equinox.Services.Api.Configurations
                         new string[] {}
                     }
                 });
-
             });
         }
 
@@ -55,10 +54,7 @@ namespace Equinox.Services.Api.Configurations
             if (app == null) throw new ArgumentNullException(nameof(app));
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            });
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
         }
     }
 }

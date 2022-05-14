@@ -18,10 +18,7 @@ namespace Equinox.Infra.Data.Migrations.EventStoreSQL
                     CreationDate = table.Column<DateTime>(nullable: false),
                     User = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StoredEvent", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_StoredEvent", x => x.Id));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

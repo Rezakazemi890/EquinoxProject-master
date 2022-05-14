@@ -31,10 +31,12 @@ namespace Equinox.Infra.Data.Context
 
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
                 e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
+            {
                 property.SetColumnType("varchar(100)");
+            }
 
             modelBuilder.ApplyConfiguration(new CustomerMap());
-                        
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -62,7 +64,7 @@ namespace Equinox.Infra.Data.Context
         {
             var domainEntities = ctx.ChangeTracker
                 .Entries<Entity>()
-                .Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any());
+                .Where(x => x.Entity.DomainEvents?.Count > 0);
 
             var domainEvents = domainEntities
                 .SelectMany(x => x.Entity.DomainEvents)
@@ -72,9 +74,7 @@ namespace Equinox.Infra.Data.Context
                 .ForEach(entity => entity.Entity.ClearDomainEvents());
 
             var tasks = domainEvents
-                .Select(async (domainEvent) => {
-                    await mediator.PublishEvent(domainEvent);
-                });
+                .Select(async (domainEvent) => await mediator.PublishEvent(domainEvent));
 
             await Task.WhenAll(tasks);
         }

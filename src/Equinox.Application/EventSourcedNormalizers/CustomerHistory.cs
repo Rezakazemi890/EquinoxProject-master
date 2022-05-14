@@ -34,7 +34,7 @@ namespace Equinox.Application.EventSourcedNormalizers
                         : change.Email,
                     BirthDate = string.IsNullOrWhiteSpace(change.BirthDate) || change.BirthDate == last.BirthDate
                         ? ""
-                        : change.BirthDate.Substring(0,10),
+                        : change.BirthDate[..10],
                     Action = string.IsNullOrWhiteSpace(change.Action) ? "" : change.Action,
                     Timestamp = change.Timestamp,
                     Who = change.Who
@@ -71,7 +71,6 @@ namespace Equinox.Application.EventSourcedNormalizers
                         historyData.Action = "Unrecognized";
                         historyData.Who = e.User ?? "Anonymous";
                         break;
-
                 }
                 HistoryData.Add(historyData);
             }

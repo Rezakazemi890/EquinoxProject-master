@@ -1,11 +1,9 @@
 using System;
+using Equinox.Core.Test.Model;
 
 namespace Equinox.Core.Test.DataService.Domain
 {
-    public class News
+    public class News : NewsServiceBase
     {
-        public string Subject { get; internal set; }
-        public DateTime FromDate { get; internal set; }
-        public string SortBy { get; internal set; }
     }
 }

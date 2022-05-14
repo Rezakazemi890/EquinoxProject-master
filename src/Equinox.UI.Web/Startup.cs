@@ -35,10 +35,7 @@ namespace Equinox.UI.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // MVC Settings
-            services.AddControllersWithViews(options =>
-            {
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });
+            services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
             services.AddRazorPages();
 
             // Setting DBContexts

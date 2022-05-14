@@ -2,7 +2,6 @@
 using Equinox.Infra.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Equinox.Infra.Data.Context
 {
     public class EventStoreSqlContext : DbContext
