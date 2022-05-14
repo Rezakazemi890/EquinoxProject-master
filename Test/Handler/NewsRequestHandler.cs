@@ -26,10 +26,10 @@ namespace Equinox.Core.Test.Handler
             return CreateNewsObject<NewsServiceResult>(newsRequest);
         }
 
-        private static NewsServiceResult CreateNewsObject<NewsServiceResult>(NewsRequest newsRequest)
-        where NewsServiceResult : NewsServiceBase, new()
+        private static TNewsService CreateNewsObject<TNewsService>(NewsRequest newsRequest)
+        where TNewsService : NewsServiceBase, new()
         {
-            return new NewsServiceResult
+            return new TNewsService
             {
                 Subject = newsRequest.Subject,
                 FromDate = newsRequest.FromDate,
