@@ -7,6 +7,8 @@ using Xunit;
 using Equinox.Core.Test.DataService;
 using Moq;
 using Equinox.Core.Test.DataService.Domain;
+using System.Collections.Generic;
+using Equinox.Core.Test.Domain;
 
 namespace Equinox.Core.Test.Test;
 
@@ -15,6 +17,7 @@ public class NewsRequestHandlerTest
     private readonly NewsRequest _newsRequest;
     private readonly NewsRequestHandler _handler;
     private readonly Mock<INewsService> _newsServiceMock;
+    private List<New> _availableNews;
 
     public NewsRequestHandlerTest()
     {
@@ -26,7 +29,9 @@ public class NewsRequestHandlerTest
             SortBy = "popularity"
         };
 
+        _availableNews = new List<New>() { new New() };
         _newsServiceMock = new Mock<INewsService>();
+        _newsServiceMock.Setup(x => x.GetAvailableNew(_newsRequest.FromDate)).Returns(_availableNews);
         _handler = new NewsRequestHandler(_newsServiceMock.Object);
     }
 
@@ -65,5 +70,13 @@ public class NewsRequestHandlerTest
         news.Subject.ShouldBe(_newsRequest.Subject);
         news.FromDate.ShouldBe(_newsRequest.FromDate);
         news.SortBy.ShouldBe(_newsRequest.SortBy);
+    }
+
+    [Fact]
+    public void Should_NotSave_News_If_Empty()
+    {
+        _availableNews.Clear();
+        _handler.GetNews(_newsRequest);
+        _newsServiceMock.Verify(x => x.Save(It.IsAny<News>()), Times.Never);
     }
 }
