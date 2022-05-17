@@ -5,5 +5,6 @@ namespace Equinox.Core.Test.DataService.Domain
 {
     public class News : NewsServiceBase
     {
+        public int NewsID { get; set; }
     }
 }

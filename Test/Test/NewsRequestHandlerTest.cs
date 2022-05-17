@@ -9,6 +9,7 @@ using Moq;
 using Equinox.Core.Test.DataService.Domain;
 using System.Collections.Generic;
 using Equinox.Core.Test.Domain;
+using System.Linq;
 
 namespace Equinox.Core.Test.Test;
 
@@ -29,7 +30,7 @@ public class NewsRequestHandlerTest
             SortBy = "popularity"
         };
 
-        _availableNews = new List<New>() { new New() };
+        _availableNews = new List<New>() { new New(){Id = 1} };
         _newsServiceMock = new Mock<INewsService>();
         _newsServiceMock.Setup(x => x.GetAvailableNew(_newsRequest.FromDate)).Returns(_availableNews);
         _handler = new NewsRequestHandler(_newsServiceMock.Object);
@@ -70,6 +71,7 @@ public class NewsRequestHandlerTest
         news.Subject.ShouldBe(_newsRequest.Subject);
         news.FromDate.ShouldBe(_newsRequest.FromDate);
         news.SortBy.ShouldBe(_newsRequest.SortBy);
+        news.NewsID.ShouldBe(_availableNews[0].Id);
     }
 
     [Fact]

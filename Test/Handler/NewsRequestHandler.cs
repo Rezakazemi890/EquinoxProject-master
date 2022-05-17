@@ -2,6 +2,9 @@ using System;
 using Equinox.Core.Test.DataService;
 using Equinox.Core.Test.DataService.Domain;
 using Equinox.Core.Test.Model;
+using System.Collections.Generic;
+using Equinox.Core.Test.Domain;
+using System.Linq;
 
 namespace Equinox.Core.Test.Handler
 {
@@ -21,7 +24,14 @@ namespace Equinox.Core.Test.Handler
                 throw new ArgumentNullException(nameof(newsRequest));
             }
 
-            _newsService.Save(CreateNewsObject<News>(newsRequest));
+            IEnumerable<New> availableNew = _newsService.GetAvailableNew(newsRequest.FromDate);
+            if (availableNew.Any())
+            {
+                var _new = availableNew.First();
+                var _newsRes = CreateNewsObject<News>(newsRequest);
+                _newsRes.NewsID = _new.Id;
+                _newsService.Save(_newsRes);
+            }
 
             return CreateNewsObject<NewsServiceResult>(newsRequest);
         }
