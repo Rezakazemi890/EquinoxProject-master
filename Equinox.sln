@@ -37,6 +37,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equinox.Infra.CrossCutting.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equinox.Core.Test", "Test\Equinox.Core.Test.csproj", "{90EB11DB-3983-4755-8F2E-9188FDC93B14}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6EC8549F-DC3F-46D2-8816-59FC9FBE06D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "src\AvaService\Sample.csproj", "{55C3AE13-A81F-41A3-AAE4-DA82610323AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +87,10 @@ Global
 		{90EB11DB-3983-4755-8F2E-9188FDC93B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90EB11DB-3983-4755-8F2E-9188FDC93B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90EB11DB-3983-4755-8F2E-9188FDC93B14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C3AE13-A81F-41A3-AAE4-DA82610323AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C3AE13-A81F-41A3-AAE4-DA82610323AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C3AE13-A81F-41A3-AAE4-DA82610323AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C3AE13-A81F-41A3-AAE4-DA82610323AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +107,7 @@ Global
 		{91F0D76D-2BEA-43D2-B123-DC29F2E87792} = {DF6C4BDE-F3C5-4E53-A5D5-9D27B2D3E38F}
 		{788030D0-561B-4136-96B4-D5ABFB5CFD07} = {DF6C4BDE-F3C5-4E53-A5D5-9D27B2D3E38F}
 		{B3000AD2-5EAA-49A2-8FC4-10DF329B15B0} = {DF6C4BDE-F3C5-4E53-A5D5-9D27B2D3E38F}
+		{55C3AE13-A81F-41A3-AAE4-DA82610323AF} = {6EC8549F-DC3F-46D2-8816-59FC9FBE06D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4050E145-6791-440A-A2E5-75B05ACD4AFE}
