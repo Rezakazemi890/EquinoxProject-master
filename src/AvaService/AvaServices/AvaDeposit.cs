@@ -20,7 +20,7 @@ namespace Sample.AvaServices
                                                   + token + "\"}",
                                                   Encoding.UTF8,
                                                   "application/json"));
-            
+
             return response;
         }
 
@@ -66,7 +66,7 @@ namespace Sample.AvaServices
             return response;
         }
 
-        public static async Task<string> normalTransferOtp(string token)
+        public static async Task<HttpResponseMessage> normalTransferOtp(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -85,11 +85,10 @@ namespace Sample.AvaServices
                                                   Encoding.UTF8,
                                                   "application/json"));
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            return responseString;
+            return response;
         }
 
-        public static async Task<string> achNormalTransferOtp(string token)
+        public static async Task<HttpResponseMessage> achNormalTransferOtp(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -107,11 +106,10 @@ namespace Sample.AvaServices
                                                   Encoding.UTF8,
                                                   "application/json"));
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            return responseString;
+            return response;
         }
 
-        public static async Task<string> getCardsByDepositThirdParty(string token)
+        public static async Task<HttpResponseMessage> getCardsByDepositThirdParty(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -126,11 +124,10 @@ namespace Sample.AvaServices
                                                   Encoding.UTF8,
                                                   "application/json"));
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            return responseString;
+            return response;
         }
 
-        public static async Task<string> getCardBalance(string token)
+        public static async Task<HttpResponseMessage> getCardBalance(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -148,11 +145,10 @@ namespace Sample.AvaServices
                                                   Encoding.UTF8,
                                                   "application/json"));
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            return responseString;
+            return response;
         }
 
-        public static async Task<string> harimOtp(string token)
+        public static async Task<HttpResponseMessage> harimOtp(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -166,11 +162,10 @@ namespace Sample.AvaServices
                                                   Encoding.UTF8,
                                                   "application/json"));
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            return responseString;
+            return response;
         }
 
-        public static async Task<string> getDepositStatement(string token)
+        public static async Task<HttpResponseMessage> getDepositStatement(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -190,11 +185,10 @@ namespace Sample.AvaServices
                                                   Encoding.UTF8,
                                                   "application/json"));
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            return responseString;
+            return response;
         }
 
-        public static async Task<string> normalTransferWithThirdParty(string token)
+        public static async Task<HttpResponseMessage> normalTransferWithThirdParty(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -214,8 +208,113 @@ namespace Sample.AvaServices
                                                   Encoding.UTF8,
                                                   "application/json"));
 
-            var responseString = await response.Content.ReadAsStringAsync();
-            return responseString;
+            return response;
+        }
+
+        public static async Task<HttpResponseMessage> normalTransfer(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
+                                                  ,""channel"":""" + Config.channel + @"""
+                                                  ,""authorizedUserInfo"":"""
+                                                  + token + "\"" +
+                                                  @",""encryptedCredentials"":""" + Program.Encrypt(Config.ticket + "|" + Config.secondPassword + "|") + @"""
+                                                  ,""amount"":""" + Config.amount + @"""
+                                                  ,""sourceDeposit"":""" + Config.sourceDeposit + @"""
+                                                  ,""destinationDeposit"":""" + Config.destinationDeposit + @"""
+                                                  ,""sourceComment"":""" + "Test" + "\"}";
+
+            var response = await client2.PostAsync(Config.depositUrl + "normalTransfer",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+
+            return response;
+        }
+
+        public static async Task<HttpResponseMessage> achNormalTransfer(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
+                                                  ,""channel"":""" + Config.channel + @"""
+                                                  ,""authorizedUserInfo"":"""
+                                                  + token + "\"" +
+                                                  @",""encryptedCredentials"":""" + Program.Encrypt(Config.ticket + "|" + Config.secondPassword + "|") + @"""
+                                                  ,""amount"":""" + Config.amount + @"""
+                                                  ,""sourceDepositNumber"":""" + Config.sourceDeposit + @"""
+                                                  ,""ibanNumber"":""" + Config.destinationIBAN + @"""
+                                                  ,""ownerName"":""" + Config.destinationIbanOwnerName + @"""
+                                                  ,""reasonCode"":""" + Config.reasonCode + @"""
+                                                  ,""reasonTitle"":""" + Config.reasonTitle + @"""
+                                                  ,""transferDescription"":""" + Config.sourceDescription + @"""
+                                                  ,""description"":""" + "Test" + "\"}";
+
+            var response = await client2.PostAsync(Config.depositUrl + "achNormalTransfer",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+
+            return response;
+        }
+
+        public static async Task<HttpResponseMessage> cardToIban(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
+                                                  ,""pan"":""" + Config.pan + "\"}";
+
+            var response = await client2.PostAsync(Config.generalUrl + "cardToIban",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+
+            return response;
+        }
+
+        public static async Task<HttpResponseMessage> getDepositsByCard(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
+                                                  ,""channel"":""" + Config.channel + @"""
+                                                  ,""pan"":""" + Config.pan + @"""
+                                                  ,""authorizedUserInfo"":"""
+                                                  + token + "\"}";
+
+            var response = await client2.PostAsync(Config.depositUrl + "getDepositsByCard",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+
+            return response;
+        }
+
+        public static async Task<HttpResponseMessage> depositToIban(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
+                                                  ,""depositNumber"":""" + Config.depositNumber + "\"}";
+
+            var response = await client2.PostAsync(Config.generalUrl + "depositToIban",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+
+            return response;
         }
     }
 }

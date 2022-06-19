@@ -12,7 +12,7 @@ namespace Sample
         public static string sourceDescription = "test";
         public static string amount = "10000";
         //?
-        public static string destinationIBAN = "100-100-1000000-1";
+        public static string destinationIBAN = "IR190090000182990000000000";
         //?
         public static string destinationIbanOwnerName = "test";
         //?
@@ -31,9 +31,20 @@ namespace Sample
         public static string fromDate = "010101";
         //?
         public static string toDate = "010131";
+        public static string ticket = "123456";
+        public static string secondPassword = "123456";
         public static string depositUrl = "Https://sbxapi.izbank.ir/private/deposit/v1/";
         public static string loginUrl = "https://sbxapi.izbank.ir/login/v1/";
         public static string cardUrl = "Https://sbxapi.izbank.ir/private/card/v1/";
         public static string generalUrl = "Https://sbxapi.izbank.ir/private/general-services/v1/";
+        public static string logPath =
+            string.Format(@"D:\AvaResult-{0}-{1}.txt",
+            DateTime.Now.ToShortDateString().
+            Replace("/", "-").
+            Replace(":", "-"),
+            DateTime.Now.ToShortTimeString().
+            Replace("/", "-").
+            Replace(":", "-")
+            );
     }
 }

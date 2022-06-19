@@ -16,7 +16,7 @@ namespace Sample.AvaServices
                                                   ""encryptedCredentials"":"""
                                                   + encryptedUserPass + "\"}",
                                                   Encoding.UTF8,
-                                                  "application/json"));            
+                                                  "application/json"));
             return response;
         }
     }
