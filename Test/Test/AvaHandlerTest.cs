@@ -6,6 +6,7 @@ using Shouldly;
 using Xunit;
 using Sample;
 using Sample.AvaServices;
+using Sample.AvaServices.Enum;
 
 namespace Equinox.Core.Test.Test;
 
@@ -60,17 +61,25 @@ public class AvaHandlerTest
         //var depositBalance = JsonConvert.DeserializeObject(depositBalanceRes);
         var depositBalance = JsonConvert.DeserializeObject<DepositBalanceRes>(await depositBalanceRes.Content.ReadAsStringAsync());
         var res = await depositBalanceRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await depositBalanceRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("depositBalance Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("depositBalance Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , depositBalanceRes.RequestMessage.RequestUri,
         (await depositBalanceRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(depositBalanceRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -89,17 +98,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var deposits = JsonConvert.DeserializeObject<DepositsRes>(await depositsRes.Content.ReadAsStringAsync());
         var res = await depositsRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await depositsRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("deposits Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("deposits Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , depositsRes.RequestMessage.RequestUri,
         (await depositsRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(depositsRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -118,17 +135,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var polTransfer = JsonConvert.DeserializeObject(await polTransferRes.Content.ReadAsStringAsync());
         var res = await polTransferRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await polTransferRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("polTransfer Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("polTransfer Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , polTransferRes.RequestMessage.RequestUri,
         (await polTransferRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(polTransferRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -146,17 +171,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var normalTransferOtp = JsonConvert.DeserializeObject(await normalTransferOtpRes.Content.ReadAsStringAsync());
         var res = await normalTransferOtpRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await normalTransferOtpRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("normalTransferOtp Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("normalTransferOtp Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , normalTransferOtpRes.RequestMessage.RequestUri,
         (await normalTransferOtpRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(normalTransferOtpRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -174,18 +207,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var archNormalTransferOtp = JsonConvert.DeserializeObject(await archNormalTransferOtpRes.Content.ReadAsStringAsync());
         var res = await archNormalTransferOtpRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await archNormalTransferOtpRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("archNormalTransferOtp Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("archNormalTransferOtp Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , archNormalTransferOtpRes.RequestMessage.RequestUri,
         (await archNormalTransferOtpRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(archNormalTransferOtpRes.StatusCode)
         , sep
-        , (to - from));
-
+        , (to - from)
+        , mustProperties);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -202,17 +242,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var getCardsByDepositThirdParty = JsonConvert.DeserializeObject(await getCardsByDepositThirdPartyRes.Content.ReadAsStringAsync());
         var res = await getCardsByDepositThirdPartyRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await getCardsByDepositThirdPartyRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("getCardsByDepositThirdParty Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("getCardsByDepositThirdParty Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , getCardsByDepositThirdPartyRes.RequestMessage.RequestUri,
         (await getCardsByDepositThirdPartyRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(getCardsByDepositThirdPartyRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -230,17 +278,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var getCardBalance = JsonConvert.DeserializeObject(await getCardBalanceRes.Content.ReadAsStringAsync());
         var res = await getCardBalanceRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await getCardBalanceRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("getCardBalance Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("getCardBalance Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , getCardBalanceRes.RequestMessage.RequestUri,
         (await getCardBalanceRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(getCardBalanceRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -258,17 +314,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var harimOtp = JsonConvert.DeserializeObject(await harimOtpRes.Content.ReadAsStringAsync());
         var res = await harimOtpRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await harimOtpRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("harimOtp Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("harimOtp Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , harimOtpRes.RequestMessage.RequestUri,
         (await harimOtpRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(harimOtpRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -286,17 +350,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var getDepositStatement = JsonConvert.DeserializeObject(await getDepositStatementRes.Content.ReadAsStringAsync());
         var res = await getDepositStatementRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await getDepositStatementRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("getDepositStatement Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("getDepositStatement Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , getDepositStatementRes.RequestMessage.RequestUri,
         (await getDepositStatementRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(getDepositStatementRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -314,17 +386,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var normalTransferWithThirdParty = JsonConvert.DeserializeObject(await normalTransferWithThirdPartyRes.Content.ReadAsStringAsync());
         var res = await normalTransferWithThirdPartyRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await normalTransferWithThirdPartyRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("normalTransferWithThirdParty Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("normalTransferWithThirdParty Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , normalTransferWithThirdPartyRes.RequestMessage.RequestUri,
         (await normalTransferWithThirdPartyRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(normalTransferWithThirdPartyRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -342,17 +422,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var normalTransfer = JsonConvert.DeserializeObject(await normalTransferRes.Content.ReadAsStringAsync());
         var res = await normalTransferRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await normalTransferRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("normalTransfer Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("normalTransfer Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , normalTransferRes.RequestMessage.RequestUri,
         (await normalTransferRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(normalTransferRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -370,17 +458,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var achNormalTransfer = JsonConvert.DeserializeObject(await achNormalTransferRes.Content.ReadAsStringAsync());
         var res = await achNormalTransferRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await achNormalTransferRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("achNormalTransfer Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("achNormalTransfer Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , achNormalTransferRes.RequestMessage.RequestUri,
         (await achNormalTransferRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(achNormalTransferRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -398,17 +494,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var cardToIban = JsonConvert.DeserializeObject(await cardToIbanRes.Content.ReadAsStringAsync());
         var res = await cardToIbanRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await cardToIbanRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("cardToIban Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("cardToIban Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , cardToIbanRes.RequestMessage.RequestUri,
         (await cardToIbanRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(cardToIbanRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -426,17 +530,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var getDepositsByCard = JsonConvert.DeserializeObject(await getDepositsByCardRes.Content.ReadAsStringAsync());
         var res = await getDepositsByCardRes.Content.ReadAsStringAsync();
-
-        //Log
+        var reqprop = await getDepositsByCardRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("getDepositsByCard Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("getDepositsByCard Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , getDepositsByCardRes.RequestMessage.RequestUri,
         (await getDepositsByCardRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(getDepositsByCardRes.StatusCode)
         , sep
-        , (to - from));
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
 
@@ -454,16 +566,25 @@ public class AvaHandlerTest
         DateTime to = DateTime.Now;
         var depositToIban = JsonConvert.DeserializeObject(await depositToIbanRes.Content.ReadAsStringAsync());
         var res = await depositToIbanRes.Content.ReadAsStringAsync();
+        var reqprop = await depositToIbanRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = "";
+        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
+        {
+            if (res.Contains(prop))
+                mustProperties += "," + prop;
+            if (reqprop.Contains(prop))
+                mustProperties += "," + prop;
+        }
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("depositToIban Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}{5}{0}"
+        string log = string.Format("depositToIban Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , depositToIbanRes.RequestMessage.RequestUri,
         (await depositToIbanRes.RequestMessage.Content.ReadAsStringAsync())
         , res
         , (int)(depositToIbanRes.StatusCode)
         , sep
-        , (to - from));
-
+        , (to - from)
+        , mustProperties);
 
         CreateLogFile.AddToTxtFile(log);
         //Assert
