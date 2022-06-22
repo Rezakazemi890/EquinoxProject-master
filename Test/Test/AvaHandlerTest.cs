@@ -7,6 +7,7 @@ using Xunit;
 using Sample;
 using Sample.AvaServices;
 using Sample.AvaServices.Enum;
+using Sample.Utils.cs;
 
 namespace Equinox.Core.Test.Test;
 
@@ -567,25 +568,8 @@ public class AvaHandlerTest
         var depositToIban = JsonConvert.DeserializeObject(await depositToIbanRes.Content.ReadAsStringAsync());
         var res = await depositToIbanRes.Content.ReadAsStringAsync();
         var reqprop = await depositToIbanRes.RequestMessage.Content.ReadAsStringAsync();
-        string mustProperties = "";
-        foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
-        {
-            if (res.Contains(prop))
-                mustProperties += "," + prop;
-            if (reqprop.Contains(prop))
-                mustProperties += "," + prop;
-        }
-        string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("depositToIban Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
-        , Environment.NewLine
-        , depositToIbanRes.RequestMessage.RequestUri,
-        (await depositToIbanRes.RequestMessage.Content.ReadAsStringAsync())
-        , res
-        , (int)(depositToIbanRes.StatusCode)
-        , sep
-        , (to - from)
-        , mustProperties);
-
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, depositToIbanRes, mustProperties, from, to);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)depositToIbanRes.StatusCode).ShouldBe(200);
