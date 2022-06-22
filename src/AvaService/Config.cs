@@ -12,7 +12,7 @@ namespace Sample
         public static string sourceDescription = "test";
         public static string amount = "10000";
         //?
-        //public static string destinationIBAN = "IR190090000182990000000000";
+        //public static string destinationIBAN = "131-800-1000000-1";
         public static string destinationIBAN = "IR123456789012345678902222";
         //?
         public static string destinationIbanOwnerName = "test";
