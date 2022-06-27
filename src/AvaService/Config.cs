@@ -8,11 +8,8 @@ namespace Sample
         public static string clientAddress = "5.160.235.50";
         public static string channel = "MOBILE";
         public static string depositNumber = "131-800-1000000-1";
-        //?
         public static string sourceDescription = "test";
         public static string amount = "10000";
-        //?
-        //public static string destinationIBAN = "131-800-1000000-1";
         public static string destinationIBAN = "IR123456789012345678902222";
         //?
         public static string destinationIbanOwnerName = "test";
@@ -27,17 +24,32 @@ namespace Sample
         public static string expDate = "0409";
         public static string pan = "5057851000000000";
         //?
+        public static string destinationPAN = "5057851000000000";
+        //?
         public static string pin = "123456";
         //?
         public static string fromDate = "010101";
         //?
         public static string toDate = "010131";
         public static string ticket = "123456";
+        //?
+        public static string approvalCode = "123456";
+        //?
+        public static string trackingNumber = "123456";
+        //?
+        public static string loanNumber = "123456";
+        //?
+        public static string branchCode = "123456";
+        //?
+        public static string cbLoanNumber = "123456";
+        //?
+        public static string loanTitle = "Test";
         public static string secondPassword = "123456";
         public static string depositUrl = "Https://sbxapi.izbank.ir/private/deposit/v1/";
         public static string loginUrl = "https://sbxapi.izbank.ir/login/v1/";
-        public static string cardUrl = "Https://sbxapi.izbank.ir/private/card/v1/";
+        public static string cardUrl = "https://sbxapi.izbank.ir/private/card/v1/";
         public static string generalUrl = "Https://sbxapi.izbank.ir/private/general-services/v1/";
+        public static string loanUrl = "https://sbxapi.izbank.ir/private/loan/v1/";
         public static string logPath =
             string.Format(@"D:\AvaResult-{0}-{1}.txt",
             DateTime.Now.ToShortDateString().

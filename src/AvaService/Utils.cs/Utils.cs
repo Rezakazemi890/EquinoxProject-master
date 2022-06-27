@@ -22,7 +22,7 @@ public static class Utils
     public static async Task<string> GetStatusLog(string response, HttpResponseMessage responseMessage, string mustSaveProperties, DateTime from, DateTime to)
     {
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("depositBalance Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
+        string log = string.Format("{8} Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
         , Environment.NewLine
         , responseMessage.RequestMessage.RequestUri,
         (await responseMessage.RequestMessage.Content.ReadAsStringAsync())
@@ -30,7 +30,8 @@ public static class Utils
         , (int)(responseMessage.StatusCode)
         , sep
         , (to - from)
-        , mustSaveProperties);
+        , mustSaveProperties,
+        responseMessage.RequestMessage.RequestUri.Segments.Last());
         return log;
     }
 }

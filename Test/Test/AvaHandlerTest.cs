@@ -340,4 +340,220 @@ public class AvaHandlerTest
         ((int)depositToIbanRes.StatusCode).ShouldBe(200);
         depositToIban.ShouldNotBeNull();
     }
+
+    [Fact]
+    public async void Should_Return_changeTransactionSecondPassword()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var changeTransactionSecondPasswordRes = await AvaDeposit.changeTransactionSecondPassword(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var changeTransactionSecondPassword = JsonConvert.DeserializeObject(await changeTransactionSecondPasswordRes.Content.ReadAsStringAsync());
+        var res = await changeTransactionSecondPasswordRes.Content.ReadAsStringAsync();
+        var reqprop = await changeTransactionSecondPasswordRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, changeTransactionSecondPasswordRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)changeTransactionSecondPasswordRes.StatusCode).ShouldBe(200);
+        changeTransactionSecondPassword.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_changeCardStaticPin()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var changeCardStaticPinRes = await AvaDeposit.changeCardStaticPin(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var changeCardStaticPin = JsonConvert.DeserializeObject(await changeCardStaticPinRes.Content.ReadAsStringAsync());
+        var res = await changeCardStaticPinRes.Content.ReadAsStringAsync();
+        var reqprop = await changeCardStaticPinRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, changeCardStaticPinRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)changeCardStaticPinRes.StatusCode).ShouldBe(200);
+        changeCardStaticPin.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_changeCardSecondOtpStatus()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var changeCardSecondOtpStatusRes = await AvaDeposit.changeCardSecondOtpStatus(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var changeCardSecondOtpStatus = JsonConvert.DeserializeObject(await changeCardSecondOtpStatusRes.Content.ReadAsStringAsync());
+        var res = await changeCardSecondOtpStatusRes.Content.ReadAsStringAsync();
+        var reqprop = await changeCardSecondOtpStatusRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, changeCardSecondOtpStatusRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)changeCardSecondOtpStatusRes.StatusCode).ShouldBe(200);
+        changeCardSecondOtpStatus.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_generateCardPin()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var generateCardPinRes = await AvaDeposit.generateCardPin(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var generateCardPin = JsonConvert.DeserializeObject(await generateCardPinRes.Content.ReadAsStringAsync());
+        var res = await generateCardPinRes.Content.ReadAsStringAsync();
+        var reqprop = await generateCardPinRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, generateCardPinRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)generateCardPinRes.StatusCode).ShouldBe(200);
+        generateCardPin.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_hotCard()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var hotCardRes = await AvaDeposit.hotCard(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var hotCard = JsonConvert.DeserializeObject(await hotCardRes.Content.ReadAsStringAsync());
+        var res = await hotCardRes.Content.ReadAsStringAsync();
+        var reqprop = await hotCardRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, hotCardRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)hotCardRes.StatusCode).ShouldBe(200);
+        hotCard.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_activateCard()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var activateCardRes = await AvaDeposit.activateCard(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var activateCard = JsonConvert.DeserializeObject(await activateCardRes.Content.ReadAsStringAsync());
+        var res = await activateCardRes.Content.ReadAsStringAsync();
+        var reqprop = await activateCardRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, activateCardRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)activateCardRes.StatusCode).ShouldBe(200);
+        activateCard.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_cardTransfer()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var cardTransferRes = await AvaDeposit.cardTransfer(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var cardTransfer = JsonConvert.DeserializeObject(await cardTransferRes.Content.ReadAsStringAsync());
+        var res = await cardTransferRes.Content.ReadAsStringAsync();
+        var reqprop = await cardTransferRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, cardTransferRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)cardTransferRes.StatusCode).ShouldBe(200);
+        cardTransfer.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_cardTransferOtp()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var cardTransferOtpRes = await AvaDeposit.cardTransferOtp(string.Empty);
+        DateTime to = DateTime.Now;
+        var cardTransferOtp = JsonConvert.DeserializeObject(await cardTransferOtpRes.Content.ReadAsStringAsync());
+        var res = await cardTransferOtpRes.Content.ReadAsStringAsync();
+        var reqprop = await cardTransferOtpRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, cardTransferOtpRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)cardTransferOtpRes.StatusCode).ShouldBe(200);
+        cardTransferOtp.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_cardHolderInquiry()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var cardHolderInquiryRes = await AvaDeposit.cardHolderInquiry(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var cardHolderInquiry = JsonConvert.DeserializeObject(await cardHolderInquiryRes.Content.ReadAsStringAsync());
+        var res = await cardHolderInquiryRes.Content.ReadAsStringAsync();
+        var reqprop = await cardHolderInquiryRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, cardHolderInquiryRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)cardHolderInquiryRes.StatusCode).ShouldBe(200);
+        cardHolderInquiry.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_payLoan()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var payLoanRes = await AvaDeposit.payLoan(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var payLoan = JsonConvert.DeserializeObject(await payLoanRes.Content.ReadAsStringAsync());
+        var res = await payLoanRes.Content.ReadAsStringAsync();
+        var reqprop = await payLoanRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, payLoanRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)payLoanRes.StatusCode).ShouldBe(200);
+        payLoan.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_getLoans()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var getLoansRes = await AvaDeposit.getLoans(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var getLoans = JsonConvert.DeserializeObject(await getLoansRes.Content.ReadAsStringAsync());
+        var res = await getLoansRes.Content.ReadAsStringAsync();
+        var reqprop = await getLoansRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, getLoansRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)getLoansRes.StatusCode).ShouldBe(200);
+        getLoans.ShouldNotBeNull();
+    }
+
+    [Fact]
+    public async void Should_Return_getLoanDetail()
+    {
+        //Act
+        DateTime from = DateTime.Now;
+        var getLoanDetailRes = await AvaDeposit.getLoanDetail(await Should_Return_Login_Token());
+        DateTime to = DateTime.Now;
+        var getLoanDetail = JsonConvert.DeserializeObject(await getLoanDetailRes.Content.ReadAsStringAsync());
+        var res = await getLoanDetailRes.Content.ReadAsStringAsync();
+        var reqprop = await getLoanDetailRes.RequestMessage.Content.ReadAsStringAsync();
+        string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
+        string log = await Utils.GetStatusLog(res, getLoanDetailRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
+        //Assert
+        ((int)getLoanDetailRes.StatusCode).ShouldBe(200);
+        getLoanDetail.ShouldNotBeNull();
+    }
 }
