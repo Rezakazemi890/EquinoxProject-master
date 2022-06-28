@@ -11,9 +11,11 @@ public static class Utils
         string mustProperties = "";
         foreach (string prop in Enum.GetNames(typeof(MustSaveProperties)))
         {
-            if (response.Contains(prop))
+            if (response.Contains(prop) && !mustProperties.Contains(prop))
+            {
                 mustProperties += "," + prop;
-            if (request.Contains(prop))
+            }
+            if (request.Contains(prop) && !mustProperties.Contains(prop))
                 mustProperties += "," + prop;
         }
         return mustProperties;

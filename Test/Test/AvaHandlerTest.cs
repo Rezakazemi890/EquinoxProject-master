@@ -7,10 +7,12 @@ using Xunit;
 using Sample;
 using Sample.AvaServices;
 using Sample.AvaServices.Enum;
+using Equinox.Core.Test.TestUtils;
 using Sample.Utils.cs;
 
 namespace Equinox.Core.Test.Test;
 
+[TestCaseOrderer("PriorityOrderer", "CollectionBehavior")]
 public class AvaHandlerTest
 {
     public AvaHandlerTest()
@@ -19,9 +21,13 @@ public class AvaHandlerTest
 
     }
     private static bool loginLoged;
-    [Fact]
+    private static int passTest;
+    private static int allTest;
+
+    [Fact, TestPriority(1)]
     public async Task<string> Should_Return_Login_Token()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var response = await AvaLogin.getToken(Program.Encrypt(Config.userName + "|" + Config.password + "|"));
@@ -41,12 +47,14 @@ public class AvaHandlerTest
         loginDto.Token.ShouldNotBeNull();
         loginDto.Token.ShouldBeOfType(typeof(string));
         loginLoged = true;
+        passTest++;
         return loginDto.Token;
     }
 
-    [Fact]
+    [Fact, TestPriority(2)]
     public async void Should_Return_Balance_Info()
     {
+        allTest++;
         //Act        
         DateTime from = DateTime.Now;
         var depositBalanceRes = await AvaDeposit.getDepositBalance(await Should_Return_Login_Token());
@@ -64,11 +72,13 @@ public class AvaHandlerTest
         ((int)depositBalanceRes.StatusCode).ShouldBe(200);
         depositBalance.Balance.ShouldNotBeNull();
         depositBalance.Balance.ShouldBeOfType(typeof(string));
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(3)]
     public async void Should_Return_Deposits_Result()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var depositsRes = await AvaDeposit.getDeposits(await Should_Return_Login_Token());
@@ -85,11 +95,13 @@ public class AvaHandlerTest
         ((int)depositsRes.StatusCode).ShouldBe(200);
         deposits.deposits[0].ShouldNotBeNull();
         deposits.deposits[0].Balance.ShouldBeGreaterThan(0);
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(4)]
     public async void Should_Return_PolTransfer_Result()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var polTransferRes = await AvaDeposit.PolTransfer(await Should_Return_Login_Token());
@@ -99,15 +111,18 @@ public class AvaHandlerTest
         var reqprop = await polTransferRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
         string log = await Utils.GetStatusLog(res, polTransferRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
 
         //Assert
         ((int)polTransferRes.StatusCode).ShouldBe(200);
         polTransfer.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(5)]
     public async void Should_Return_normalTransferOtp()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var normalTransferOtpRes = await AvaDeposit.normalTransferOtp(await Should_Return_Login_Token());
@@ -117,15 +132,18 @@ public class AvaHandlerTest
         var reqprop = await normalTransferOtpRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
         string log = await Utils.GetStatusLog(res, normalTransferOtpRes, mustProperties, from, to);
+        CreateLogFile.AddToTxtFile(log);
 
         //Assert
         ((int)normalTransferOtpRes.StatusCode).ShouldBe(200);
         normalTransferOtp.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(6)]
     public async void Should_Return_achNormalTransferOtp()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var archNormalTransferOtpRes = await AvaDeposit.achNormalTransferOtp(await Should_Return_Login_Token());
@@ -140,11 +158,13 @@ public class AvaHandlerTest
         //Assert
         ((int)archNormalTransferOtpRes.StatusCode).ShouldBe(200);
         archNormalTransferOtp.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(6)]
     public async void Should_Return_getCardsByDepositThirdParty()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var getCardsByDepositThirdPartyRes = await AvaDeposit.getCardsByDepositThirdParty("");
@@ -160,11 +180,13 @@ public class AvaHandlerTest
         //Assert
         ((int)getCardsByDepositThirdPartyRes.StatusCode).ShouldBe(200);
         getCardsByDepositThirdParty.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(7)]
     public async void Should_Return_getCardBalance()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var getCardBalanceRes = await AvaDeposit.getCardBalance(await Should_Return_Login_Token());
@@ -180,11 +202,13 @@ public class AvaHandlerTest
         //Assert
         ((int)getCardBalanceRes.StatusCode).ShouldBe(200);
         getCardBalance.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(8)]
     public async void Should_Return_harimOtp()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var harimOtpRes = await AvaDeposit.harimOtp("");
@@ -200,11 +224,13 @@ public class AvaHandlerTest
         //Assert
         ((int)harimOtpRes.StatusCode).ShouldBe(200);
         harimOtp.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(9)]
     public async void Should_Return_getDepositStatement()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var getDepositStatementRes = await AvaDeposit.getDepositStatement(await Should_Return_Login_Token());
@@ -220,11 +246,13 @@ public class AvaHandlerTest
         //Assert
         ((int)getDepositStatementRes.StatusCode).ShouldBe(200);
         getDepositStatement.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(10)]
     public async void Should_Return_normalTransferWithThirdParty()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var normalTransferWithThirdPartyRes = await AvaDeposit.normalTransferWithThirdParty(await Should_Return_Login_Token());
@@ -240,11 +268,13 @@ public class AvaHandlerTest
         //Assert
         ((int)normalTransferWithThirdPartyRes.StatusCode).ShouldBe(200);
         normalTransferWithThirdParty.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(11)]
     public async void Should_Return_normalTransfer()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var normalTransferRes = await AvaDeposit.normalTransfer(await Should_Return_Login_Token());
@@ -260,11 +290,13 @@ public class AvaHandlerTest
         //Assert
         ((int)normalTransferRes.StatusCode).ShouldBe(200);
         normalTransfer.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(12)]
     public async void Should_Return_achNormalTransfer()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var achNormalTransferRes = await AvaDeposit.achNormalTransfer(await Should_Return_Login_Token());
@@ -280,11 +312,13 @@ public class AvaHandlerTest
         //Assert
         ((int)achNormalTransferRes.StatusCode).ShouldBe(200);
         achNormalTransfer.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(13)]
     public async void Should_Return_cardToIban()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var cardToIbanRes = await AvaDeposit.cardToIban(await Should_Return_Login_Token());
@@ -300,11 +334,13 @@ public class AvaHandlerTest
         //Assert
         ((int)cardToIbanRes.StatusCode).ShouldBe(200);
         cardToIban.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(14)]
     public async void Should_Return_getDepositsByCard()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var getDepositsByCardRes = await AvaDeposit.getDepositsByCard(await Should_Return_Login_Token());
@@ -321,11 +357,13 @@ public class AvaHandlerTest
         //Assert
         ((int)getDepositsByCardRes.StatusCode).ShouldBe(200);
         getDepositsByCard.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(15)]
     public async void Should_Return_depositToIban()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var depositToIbanRes = await AvaDeposit.depositToIban(await Should_Return_Login_Token());
@@ -339,11 +377,13 @@ public class AvaHandlerTest
         //Assert
         ((int)depositToIbanRes.StatusCode).ShouldBe(200);
         depositToIban.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(16)]
     public async void Should_Return_changeTransactionSecondPassword()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var changeTransactionSecondPasswordRes = await AvaDeposit.changeTransactionSecondPassword(await Should_Return_Login_Token());
@@ -357,11 +397,13 @@ public class AvaHandlerTest
         //Assert
         ((int)changeTransactionSecondPasswordRes.StatusCode).ShouldBe(200);
         changeTransactionSecondPassword.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(17)]
     public async void Should_Return_changeCardStaticPin()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var changeCardStaticPinRes = await AvaDeposit.changeCardStaticPin(await Should_Return_Login_Token());
@@ -375,11 +417,13 @@ public class AvaHandlerTest
         //Assert
         ((int)changeCardStaticPinRes.StatusCode).ShouldBe(200);
         changeCardStaticPin.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(18)]
     public async void Should_Return_changeCardSecondOtpStatus()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var changeCardSecondOtpStatusRes = await AvaDeposit.changeCardSecondOtpStatus(await Should_Return_Login_Token());
@@ -393,11 +437,13 @@ public class AvaHandlerTest
         //Assert
         ((int)changeCardSecondOtpStatusRes.StatusCode).ShouldBe(200);
         changeCardSecondOtpStatus.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(19)]
     public async void Should_Return_generateCardPin()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var generateCardPinRes = await AvaDeposit.generateCardPin(await Should_Return_Login_Token());
@@ -411,11 +457,13 @@ public class AvaHandlerTest
         //Assert
         ((int)generateCardPinRes.StatusCode).ShouldBe(200);
         generateCardPin.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(20)]
     public async void Should_Return_hotCard()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var hotCardRes = await AvaDeposit.hotCard(await Should_Return_Login_Token());
@@ -429,11 +477,13 @@ public class AvaHandlerTest
         //Assert
         ((int)hotCardRes.StatusCode).ShouldBe(200);
         hotCard.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(21)]
     public async void Should_Return_activateCard()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var activateCardRes = await AvaDeposit.activateCard(await Should_Return_Login_Token());
@@ -447,11 +497,13 @@ public class AvaHandlerTest
         //Assert
         ((int)activateCardRes.StatusCode).ShouldBe(200);
         activateCard.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(22)]
     public async void Should_Return_cardTransfer()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var cardTransferRes = await AvaDeposit.cardTransfer(await Should_Return_Login_Token());
@@ -465,11 +517,13 @@ public class AvaHandlerTest
         //Assert
         ((int)cardTransferRes.StatusCode).ShouldBe(200);
         cardTransfer.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(23)]
     public async void Should_Return_cardTransferOtp()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var cardTransferOtpRes = await AvaDeposit.cardTransferOtp(string.Empty);
@@ -483,11 +537,13 @@ public class AvaHandlerTest
         //Assert
         ((int)cardTransferOtpRes.StatusCode).ShouldBe(200);
         cardTransferOtp.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(24)]
     public async void Should_Return_cardHolderInquiry()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var cardHolderInquiryRes = await AvaDeposit.cardHolderInquiry(await Should_Return_Login_Token());
@@ -501,11 +557,13 @@ public class AvaHandlerTest
         //Assert
         ((int)cardHolderInquiryRes.StatusCode).ShouldBe(200);
         cardHolderInquiry.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(25)]
     public async void Should_Return_payLoan()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var payLoanRes = await AvaDeposit.payLoan(await Should_Return_Login_Token());
@@ -519,11 +577,13 @@ public class AvaHandlerTest
         //Assert
         ((int)payLoanRes.StatusCode).ShouldBe(200);
         payLoan.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(26)]
     public async void Should_Return_getLoans()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var getLoansRes = await AvaDeposit.getLoans(await Should_Return_Login_Token());
@@ -537,11 +597,13 @@ public class AvaHandlerTest
         //Assert
         ((int)getLoansRes.StatusCode).ShouldBe(200);
         getLoans.ShouldNotBeNull();
+        passTest++;
     }
 
-    [Fact]
+    [Fact, TestPriority(27)]
     public async void Should_Return_getLoanDetail()
     {
+        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var getLoanDetailRes = await AvaDeposit.getLoanDetail(await Should_Return_Login_Token());
@@ -555,5 +617,22 @@ public class AvaHandlerTest
         //Assert
         ((int)getLoanDetailRes.StatusCode).ShouldBe(200);
         getLoanDetail.ShouldNotBeNull();
+        passTest++;
+    }
+
+    [Fact, TestPriority(28)]
+    public async void Should_Return_SummeryOfTest()
+    {
+        //Act
+        string log = @"----------------------------------------------------------------------------------------------------";
+        log = log
+            + Environment.NewLine
+            + "All test : "
+            + allTest
+            + " Pass : "
+            + passTest
+            + " Fail : "
+            + (allTest - passTest);
+        CreateLogFile.AddToTxtFile(log);
     }
 }
