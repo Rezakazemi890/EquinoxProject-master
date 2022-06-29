@@ -12,14 +12,9 @@ using Sample.Utils.cs;
 
 namespace Equinox.Core.Test.Test;
 
-[TestCaseOrderer("PriorityOrderer", "CollectionBehavior")]
+[TestCaseOrderer("Equinox.Core.Test.TestUtils.PriorityOrderer", "Equinox.Core.Test")]
 public class AvaHandlerTest
 {
-    public AvaHandlerTest()
-    {
-        //Arrange
-
-    }
     private static bool loginLoged;
     private static int passTest;
     private static int allTest;
@@ -27,7 +22,6 @@ public class AvaHandlerTest
     [Fact, TestPriority(1)]
     public async Task<string> Should_Return_Login_Token()
     {
-        allTest++;
         //Act
         DateTime from = DateTime.Now;
         var response = await AvaLogin.getToken(Program.Encrypt(Config.userName + "|" + Config.password + "|"));
@@ -36,6 +30,7 @@ public class AvaHandlerTest
         var res = await response.Content.ReadAsStringAsync();
         if (!loginLoged)
         {
+            allTest++;
             loginLoged = true;
             //Log
             string log = await Utils.GetStatusLog(res, response, string.Empty, from, to);
@@ -46,8 +41,10 @@ public class AvaHandlerTest
         ((int)response.StatusCode).ShouldBe(200);
         loginDto.Token.ShouldNotBeNull();
         loginDto.Token.ShouldBeOfType(typeof(string));
+        if (!loginLoged)
+            passTest++;
         loginLoged = true;
-        passTest++;
+
         return loginDto.Token;
     }
 
@@ -629,9 +626,9 @@ public class AvaHandlerTest
             + Environment.NewLine
             + "All test : "
             + allTest
-            + " Pass : "
+            + " - Pass : "
             + passTest
-            + " Fail : "
+            + " - Fail : "
             + (allTest - passTest);
         CreateLogFile.AddToTxtFile(log);
     }
