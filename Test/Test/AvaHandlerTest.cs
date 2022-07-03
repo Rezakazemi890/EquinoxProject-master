@@ -9,6 +9,7 @@ using Sample.AvaServices;
 using Sample.AvaServices.Enum;
 using Equinox.Core.Test.TestUtils;
 using Sample.Utils.cs;
+using Newtonsoft.Json.Linq;
 
 namespace Equinox.Core.Test.Test;
 
@@ -107,7 +108,12 @@ public class AvaHandlerTest
         var res = await polTransferRes.Content.ReadAsStringAsync();
         var reqprop = await polTransferRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, polTransferRes, mustProperties, from, to);
+        string log = await Utils.GetStatusLog(
+            res, 
+            polTransferRes, 
+            mustProperties + Environment.NewLine + "PreRequest for reasoncode : getAllAchTransactionReason service", 
+            from, 
+            to);        
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -302,8 +308,12 @@ public class AvaHandlerTest
         var res = await achNormalTransferRes.Content.ReadAsStringAsync();
         var reqprop = await achNormalTransferRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, achNormalTransferRes, mustProperties, from, to);
-
+        string log = await Utils.GetStatusLog(
+            res, 
+            achNormalTransferRes, 
+            mustProperties + Environment.NewLine + "PreRequest for reasoncode : getAllAchTransactionReason service", 
+            from, 
+            to);        
         CreateLogFile.AddToTxtFile(log);
 
         //Assert

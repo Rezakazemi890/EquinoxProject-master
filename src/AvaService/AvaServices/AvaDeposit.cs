@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace Sample.AvaServices
 {
@@ -45,7 +46,6 @@ namespace Sample.AvaServices
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
             var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
                                                   ,""sourceDescription"":""" + Config.sourceDescription + @"""
                                                   ,""clientAddress"":""" + Config.clientAddress + @"""
@@ -55,8 +55,8 @@ namespace Sample.AvaServices
                                                   @",""amount"":""" + Config.amount + @"""
                                                   ,""destinationIBAN"":""" + Config.destinationIBAN + @"""                                                  
                                                   ,""destinationIbanOwnerName"":""" + Config.destinationIbanOwnerName + @"""
-                                                  ,""reasonCode"":""" + Config.reasonCode + @"""
-                                                  ,""reasonTitle"":""" + Config.reasonTitle + @"""
+                                                  ,""reasonCode"":""" + await getAllAchTransactionReason(string.Empty) + @"""
+                                                  ,""reasonTitle"":""" + await getAllAchTransactionReasonTitle(string.Empty) + @"""
                                                   ,""sourceDeposit"":""" + Config.sourceDeposit + "\"}";
 
             var response = await client2.PostAsync(Config.depositUrl + "instantTransfer",
@@ -250,8 +250,8 @@ namespace Sample.AvaServices
                                                   ,""sourceDepositNumber"":""" + Config.sourceDeposit + @"""
                                                   ,""ibanNumber"":""" + Config.destinationIBAN + @"""
                                                   ,""ownerName"":""" + Config.destinationIbanOwnerName + @"""
-                                                  ,""reasonCode"":""" + Config.reasonCode + @"""
-                                                  ,""reasonTitle"":""" + Config.reasonTitle + @"""
+                                                  ,""reasonCode"":""" + await getAllAchTransactionReason(string.Empty) + @"""
+                                                  ,""reasonTitle"":""" + await getAllAchTransactionReasonTitle(string.Empty) + @"""
                                                   ,""transferDescription"":""" + Config.sourceDescription + @"""
                                                   ,""description"":""" + "Test" + "\"}";
 
@@ -581,6 +581,41 @@ namespace Sample.AvaServices
                                                   "application/json"));
 
             return response;
+        }
+
+        public static async Task<string> getAllAchTransactionReason(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + "\"}";
+
+            var response = await client2.PostAsync(Config.generalUrl + "getAllAchTransactionReason",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+            var res = await response.Content.ReadAsStringAsync();
+            return JArray
+                .Parse("[" + res + "]")[0]["responseDtos"][0]["code"]
+                .ToString();
+        }
+        public static async Task<string> getAllAchTransactionReasonTitle(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + "\"}";
+
+            var response = await client2.PostAsync(Config.generalUrl + "getAllAchTransactionReason",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+            var res = await response.Content.ReadAsStringAsync();
+            return JArray.Parse("[" + res + "]")[0]["responseDtos"][0]["description"].ToString();
         }
     }
 }
