@@ -21,10 +21,10 @@ public static class Utils
         return mustProperties;
     }
 
-    public static async Task<string> GetStatusLog(string response, HttpResponseMessage responseMessage, string mustSaveProperties, DateTime from, DateTime to)
+    public static async Task<string> GetStatusLog(string response, HttpResponseMessage responseMessage, string mustSaveProperties, DateTime from, DateTime to, string curl)
     {
         string sep = "----------------------------------------------------------------------------------------------------";
-        string log = string.Format("{8} Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7}{0}{5}{0}"
+        string log = string.Format("{8} Service {0}Request : {0}Url: {1}{0}Body: {2}{0}Response : {0}Body: {3}{0}StatusCode: {4} {0}ResponseTime: {6} {0}Must save : {7} {0}curl: {9} {0}{5}{0}"
         , Environment.NewLine
         , responseMessage.RequestMessage.RequestUri,
         (await responseMessage.RequestMessage.Content.ReadAsStringAsync())
@@ -33,7 +33,16 @@ public static class Utils
         , sep
         , (to - from)
         , mustSaveProperties,
-        responseMessage.RequestMessage.RequestUri.Segments.Last());
+        responseMessage.RequestMessage.RequestUri.Segments.Last(),
+        curl);
         return log;
+    }
+
+    public static async Task<string> CreateCurl(HttpResponseMessage responseMessage)
+    {
+        string log = @"curl -H " + @"""Content-Type: application/json""" + string.Format(" -X POST -d {0} {1}",
+         (await responseMessage.RequestMessage.Content.ReadAsStringAsync()).Replace(" ", "").Replace("\"", @"\"+"\"")
+        , responseMessage.RequestMessage.RequestUri);
+        return log.Replace(Environment.NewLine, "");
     }
 }

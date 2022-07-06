@@ -417,7 +417,6 @@ namespace Sample.AvaServices
                                                   new StringContent(con,
                                                   Encoding.UTF8,
                                                   "application/json"));
-
             return response;
         }
 

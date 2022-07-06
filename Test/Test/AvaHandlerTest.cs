@@ -34,8 +34,8 @@ public class AvaHandlerTest
             allTest++;
             loginLoged = true;
             //Log
-            string log = await Utils.GetStatusLog(res, response, string.Empty, from, to);
-
+            string curl = await Utils.CreateCurl(response);
+            string log = await Utils.GetStatusLog(res, response, string.Empty, from, to, curl);
             CreateLogFile.AddToTxtFile(log);
         }
         //Assert
@@ -62,8 +62,8 @@ public class AvaHandlerTest
         var res = await depositBalanceRes.Content.ReadAsStringAsync();
         var reqprop = await depositBalanceRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, depositBalanceRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(depositBalanceRes);
+        string log = await Utils.GetStatusLog(res, depositBalanceRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -85,8 +85,8 @@ public class AvaHandlerTest
         var res = await depositsRes.Content.ReadAsStringAsync();
         var reqprop = await depositsRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, depositsRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(depositsRes);
+        string log = await Utils.GetStatusLog(res, depositsRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -108,12 +108,8 @@ public class AvaHandlerTest
         var res = await polTransferRes.Content.ReadAsStringAsync();
         var reqprop = await polTransferRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(
-            res, 
-            polTransferRes, 
-            mustProperties + Environment.NewLine + "PreRequest for reasoncode : getAllAchTransactionReason service", 
-            from, 
-            to);        
+        string curl = await Utils.CreateCurl(polTransferRes);
+        string log = await Utils.GetStatusLog(res, polTransferRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -134,7 +130,8 @@ public class AvaHandlerTest
         var res = await normalTransferOtpRes.Content.ReadAsStringAsync();
         var reqprop = await normalTransferOtpRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, normalTransferOtpRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(normalTransferOtpRes);
+        string log = await Utils.GetStatusLog(res, normalTransferOtpRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -155,7 +152,8 @@ public class AvaHandlerTest
         var res = await archNormalTransferOtpRes.Content.ReadAsStringAsync();
         var reqprop = await archNormalTransferOtpRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, archNormalTransferOtpRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(archNormalTransferOtpRes);
+        string log = await Utils.GetStatusLog(res, archNormalTransferOtpRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -176,8 +174,8 @@ public class AvaHandlerTest
         var res = await getCardsByDepositThirdPartyRes.Content.ReadAsStringAsync();
         var reqprop = await getCardsByDepositThirdPartyRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, getCardsByDepositThirdPartyRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(getCardsByDepositThirdPartyRes);
+        string log = await Utils.GetStatusLog(res, getCardsByDepositThirdPartyRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -198,8 +196,8 @@ public class AvaHandlerTest
         var res = await getCardBalanceRes.Content.ReadAsStringAsync();
         var reqprop = await getCardBalanceRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, getCardBalanceRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(getCardBalanceRes);
+        string log = await Utils.GetStatusLog(res, getCardBalanceRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -220,8 +218,8 @@ public class AvaHandlerTest
         var res = await harimOtpRes.Content.ReadAsStringAsync();
         var reqprop = await harimOtpRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, harimOtpRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(harimOtpRes);
+        string log = await Utils.GetStatusLog(res, harimOtpRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -242,8 +240,8 @@ public class AvaHandlerTest
         var res = await getDepositStatementRes.Content.ReadAsStringAsync();
         var reqprop = await getDepositStatementRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, getDepositStatementRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(getDepositStatementRes);
+        string log = await Utils.GetStatusLog(res, getDepositStatementRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -264,8 +262,8 @@ public class AvaHandlerTest
         var res = await normalTransferWithThirdPartyRes.Content.ReadAsStringAsync();
         var reqprop = await normalTransferWithThirdPartyRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, normalTransferWithThirdPartyRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(normalTransferWithThirdPartyRes);
+        string log = await Utils.GetStatusLog(res, normalTransferWithThirdPartyRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -286,8 +284,8 @@ public class AvaHandlerTest
         var res = await normalTransferRes.Content.ReadAsStringAsync();
         var reqprop = await normalTransferRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, normalTransferRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(normalTransferRes);
+        string log = await Utils.GetStatusLog(res, normalTransferRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -308,12 +306,8 @@ public class AvaHandlerTest
         var res = await achNormalTransferRes.Content.ReadAsStringAsync();
         var reqprop = await achNormalTransferRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(
-            res, 
-            achNormalTransferRes, 
-            mustProperties + Environment.NewLine + "PreRequest for reasoncode : getAllAchTransactionReason service", 
-            from, 
-            to);        
+        string curl = await Utils.CreateCurl(achNormalTransferRes);
+        string log = await Utils.GetStatusLog(res, achNormalTransferRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -334,8 +328,8 @@ public class AvaHandlerTest
         var res = await cardToIbanRes.Content.ReadAsStringAsync();
         var reqprop = await cardToIbanRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, cardToIbanRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(cardToIbanRes);
+        string log = await Utils.GetStatusLog(res, cardToIbanRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -357,8 +351,8 @@ public class AvaHandlerTest
         var reqprop = await getDepositsByCardRes.RequestMessage.Content.ReadAsStringAsync();
 
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, getDepositsByCardRes, mustProperties, from, to);
-
+        string curl = await Utils.CreateCurl(getDepositsByCardRes);
+        string log = await Utils.GetStatusLog(res, getDepositsByCardRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
 
         //Assert
@@ -379,7 +373,8 @@ public class AvaHandlerTest
         var res = await depositToIbanRes.Content.ReadAsStringAsync();
         var reqprop = await depositToIbanRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, depositToIbanRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(depositToIbanRes);
+        string log = await Utils.GetStatusLog(res, depositToIbanRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)depositToIbanRes.StatusCode).ShouldBe(200);
@@ -399,7 +394,8 @@ public class AvaHandlerTest
         var res = await changeTransactionSecondPasswordRes.Content.ReadAsStringAsync();
         var reqprop = await changeTransactionSecondPasswordRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, changeTransactionSecondPasswordRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(changeTransactionSecondPasswordRes);
+        string log = await Utils.GetStatusLog(res, changeTransactionSecondPasswordRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)changeTransactionSecondPasswordRes.StatusCode).ShouldBe(200);
@@ -419,7 +415,8 @@ public class AvaHandlerTest
         var res = await changeCardStaticPinRes.Content.ReadAsStringAsync();
         var reqprop = await changeCardStaticPinRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, changeCardStaticPinRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(changeCardStaticPinRes);
+        string log = await Utils.GetStatusLog(res, changeCardStaticPinRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)changeCardStaticPinRes.StatusCode).ShouldBe(200);
@@ -439,7 +436,8 @@ public class AvaHandlerTest
         var res = await changeCardSecondOtpStatusRes.Content.ReadAsStringAsync();
         var reqprop = await changeCardSecondOtpStatusRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, changeCardSecondOtpStatusRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(changeCardSecondOtpStatusRes);
+        string log = await Utils.GetStatusLog(res, changeCardSecondOtpStatusRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)changeCardSecondOtpStatusRes.StatusCode).ShouldBe(200);
@@ -459,7 +457,8 @@ public class AvaHandlerTest
         var res = await generateCardPinRes.Content.ReadAsStringAsync();
         var reqprop = await generateCardPinRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, generateCardPinRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(generateCardPinRes);
+        string log = await Utils.GetStatusLog(res, generateCardPinRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)generateCardPinRes.StatusCode).ShouldBe(200);
@@ -479,7 +478,8 @@ public class AvaHandlerTest
         var res = await hotCardRes.Content.ReadAsStringAsync();
         var reqprop = await hotCardRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, hotCardRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(hotCardRes);
+        string log = await Utils.GetStatusLog(res, hotCardRes, mustProperties, from, to, curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)hotCardRes.StatusCode).ShouldBe(200);
@@ -499,7 +499,8 @@ public class AvaHandlerTest
         var res = await activateCardRes.Content.ReadAsStringAsync();
         var reqprop = await activateCardRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, activateCardRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(activateCardRes);
+        string log = await Utils.GetStatusLog(res, activateCardRes, mustProperties, from, to,curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)activateCardRes.StatusCode).ShouldBe(200);
@@ -519,7 +520,8 @@ public class AvaHandlerTest
         var res = await cardTransferRes.Content.ReadAsStringAsync();
         var reqprop = await cardTransferRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, cardTransferRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(cardTransferRes);
+        string log = await Utils.GetStatusLog(res, cardTransferRes, mustProperties, from, to,curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)cardTransferRes.StatusCode).ShouldBe(200);
@@ -539,7 +541,8 @@ public class AvaHandlerTest
         var res = await cardTransferOtpRes.Content.ReadAsStringAsync();
         var reqprop = await cardTransferOtpRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, cardTransferOtpRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(cardTransferOtpRes);
+        string log = await Utils.GetStatusLog(res, cardTransferOtpRes, mustProperties, from, to,curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)cardTransferOtpRes.StatusCode).ShouldBe(200);
@@ -559,7 +562,8 @@ public class AvaHandlerTest
         var res = await cardHolderInquiryRes.Content.ReadAsStringAsync();
         var reqprop = await cardHolderInquiryRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, cardHolderInquiryRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(cardHolderInquiryRes);
+        string log = await Utils.GetStatusLog(res, cardHolderInquiryRes, mustProperties, from, to,curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)cardHolderInquiryRes.StatusCode).ShouldBe(200);
@@ -579,7 +583,8 @@ public class AvaHandlerTest
         var res = await payLoanRes.Content.ReadAsStringAsync();
         var reqprop = await payLoanRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, payLoanRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(payLoanRes);
+        string log = await Utils.GetStatusLog(res, payLoanRes, mustProperties, from, to,curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)payLoanRes.StatusCode).ShouldBe(200);
@@ -599,7 +604,8 @@ public class AvaHandlerTest
         var res = await getLoansRes.Content.ReadAsStringAsync();
         var reqprop = await getLoansRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, getLoansRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(getLoansRes);
+        string log = await Utils.GetStatusLog(res, getLoansRes, mustProperties, from, to,curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)getLoansRes.StatusCode).ShouldBe(200);
@@ -619,7 +625,8 @@ public class AvaHandlerTest
         var res = await getLoanDetailRes.Content.ReadAsStringAsync();
         var reqprop = await getLoanDetailRes.RequestMessage.Content.ReadAsStringAsync();
         string mustProperties = Utils.GetMustSaveProperties(res, reqprop);
-        string log = await Utils.GetStatusLog(res, getLoanDetailRes, mustProperties, from, to);
+        string curl = await Utils.CreateCurl(getLoanDetailRes);
+        string log = await Utils.GetStatusLog(res, getLoanDetailRes, mustProperties, from, to,curl);
         CreateLogFile.AddToTxtFile(log);
         //Assert
         ((int)getLoanDetailRes.StatusCode).ShouldBe(200);
