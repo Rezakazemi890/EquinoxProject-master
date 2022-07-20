@@ -455,31 +455,9 @@ namespace Sample.AvaServices
                                                   ,""trackingNumber"":""" + Config.trackingNumber + @"""                                                  
                                                   ,""sourcePAN"":""" + Config.pan + @"""                                                  
                                                   ,""expDate"":""" + Config.expDate + @"""                                                  
-                                                  ,""approvalCode"":""" + Config.approvalCode + "\"}";
+                                                  ,""approvalCode"":""" + await getApprovalCode(await cardHolderInquiry(token)) + "\"}";
 
             var response = await client2.PostAsync(Config.cardUrl + "cardTransfer",
-                                                  new StringContent(con,
-                                                  Encoding.UTF8,
-                                                  "application/json"));
-
-            return response;
-        }
-
-        public static async Task<HttpResponseMessage> cardHolderInquery(string token)
-        {
-            client2.DefaultRequestHeaders.Accept.Clear();
-            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
-                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
-                                                  ,""channel"":""" + Config.channel + @"""
-                                                  ,""authorizedUserInfo"":"""
-                                                  + token + "\"" +
-                                                  @",""destinationPAN"":""" + Config.pan + @"""
-                                                  ,""trackingNumber"":""" + Config.trackingNumber + @"""                                                  
-                                                  ,""sourcePAN"":""" + Config.pan + "\"}";
-
-            var response = await client2.PostAsync(Config.cardUrl + "cardHolderInquery",
                                                   new StringContent(con,
                                                   Encoding.UTF8,
                                                   "application/json"));
@@ -637,7 +615,7 @@ namespace Sample.AvaServices
         public static async Task<string> getApprovalCode(HttpResponseMessage response)
         {
             var res = await response.Content.ReadAsStringAsync();
-            return JArray.Parse("[" + res + "]")[0]["responseDtos"][0]["description"].ToString();
+            return JArray.Parse("[" + res + "]")[0]["twoPhaseReferenceCode"].ToString();
         }
 
         public static async Task<HttpResponseMessage> getCardsByDeposit(string token)

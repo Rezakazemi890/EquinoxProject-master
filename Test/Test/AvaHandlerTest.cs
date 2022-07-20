@@ -701,6 +701,7 @@ public class AvaHandlerTest
     public async void Should_Return_SummeryOfTest()
     {
         //Act
+        passTest++;
         string log = @"----------------------------------------------------------------------------------------------------";
         log = log
             + Environment.NewLine

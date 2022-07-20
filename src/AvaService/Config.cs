@@ -28,12 +28,12 @@ namespace Sample
         //?
         public static string pin = "123456";
         public static string fromDate = "2022-04-30T00:00:00";
-        public static string toDate = "2022-04-30T00:00:00";
+        public static string toDate = "2022-05-15T00:00:00";
         public static string ticket = "123456";
         //?
         public static string approvalCode = "123456";
         //?
-        public static string trackingNumber = "123456";
+        public static string trackingNumber = "1234567890";
         public static string loanNumber = "101.101.1000000.101";
         //?
         public static string branchCode = "123456";
@@ -41,7 +41,7 @@ namespace Sample
         public static string cbLoanNumber = "123456";
         //?
         public static string loanTitle = "Test";
-        public static string secondPassword = "123456";
+        public static string secondPassword = "654321";
         public static string identificationNumber = "0000000000";
         public static string mobileNumber = "09121212020";
         public static string depositUrl = "Https://sbxapi.izbank.ir/private/deposit/v1/";
