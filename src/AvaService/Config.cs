@@ -42,6 +42,8 @@ namespace Sample
         //?
         public static string loanTitle = "Test";
         public static string secondPassword = "123456";
+        public static string identificationNumber = "0000000000";
+        public static string mobileNumber = "09121212020";
         public static string depositUrl = "Https://sbxapi.izbank.ir/private/deposit/v1/";
         public static string loginUrl = "https://sbxapi.izbank.ir/login/v1/";
         public static string cardUrl = "https://sbxapi.izbank.ir/private/card/v1/";

@@ -55,8 +55,8 @@ namespace Sample.AvaServices
                                                   @",""amount"":""" + Config.amount + @"""
                                                   ,""destinationIBAN"":""" + Config.destinationIBAN + @"""                                                  
                                                   ,""destinationIbanOwnerName"":""" + Config.destinationIbanOwnerName + @"""
-                                                  ,""reasonCode"":""" + await getAllAchTransactionReason(string.Empty) + @"""
-                                                  ,""reasonTitle"":""" + await getAllAchTransactionReasonTitle(string.Empty) + @"""
+                                                  ,""reasonCode"":""" + await getAllAchTransactionReasonCode(await getAllAchTransactionReason(string.Empty)) + @"""
+                                                  ,""reasonTitle"":""" + await getAllAchTransactionReasonTitle(await getAllAchTransactionReason(string.Empty)) + @"""
                                                   ,""sourceDeposit"":""" + Config.sourceDeposit + "\"}";
 
             var response = await client2.PostAsync(Config.depositUrl + "instantTransfer",
@@ -250,8 +250,8 @@ namespace Sample.AvaServices
                                                   ,""sourceDepositNumber"":""" + Config.sourceDeposit + @"""
                                                   ,""ibanNumber"":""" + Config.destinationIBAN + @"""
                                                   ,""ownerName"":""" + Config.destinationIbanOwnerName + @"""
-                                                  ,""reasonCode"":""" + await getAllAchTransactionReason(string.Empty) + @"""
-                                                  ,""reasonTitle"":""" + await getAllAchTransactionReasonTitle(string.Empty) + @"""
+                                                  ,""reasonCode"":""" + await getAllAchTransactionReasonCode(await getAllAchTransactionReason(string.Empty)) + @"""
+                                                  ,""reasonTitle"":""" + await getAllAchTransactionReasonTitle(await getAllAchTransactionReason(string.Empty)) + @"""
                                                   ,""transferDescription"":""" + Config.sourceDescription + @"""
                                                   ,""description"":""" + "Test" + "\"}";
 
@@ -505,37 +505,6 @@ namespace Sample.AvaServices
 
             return response;
         }
-
-        public static async Task<HttpResponseMessage> cardHolderInquiry(string token)
-        {
-            client2.DefaultRequestHeaders.Accept.Clear();
-            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-
-            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
-                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
-                                                  ,""channel"":""" + Config.channel + @"""
-                                                  ,""destinationPAN"":""" + Config.destinationPAN + @"""
-                                                  ,""authorizedUserInfo"":"""
-                                                  + token + "\"" +
-                                                  @",""sourcePAN"":""" + Config.pan + "\"}";
-
-            var response = await client2.PostAsync(Config.cardUrl + "cardHolderInquiry",
-                                                  new StringContent(con,
-                                                  Encoding.UTF8,
-                                                  "application/json"));
-
-            return response;
-        }
-
-        public static async Task<string> getApprovalCode(HttpResponseMessage response)
-        {
-            var res = await response.Content.ReadAsStringAsync();
-            return JArray.Parse("[" + res + "]")[0]["responseDtos"][0]["description"].ToString();
-        }
-
-
-
         public static async Task<HttpResponseMessage> payLoan(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
@@ -613,7 +582,7 @@ namespace Sample.AvaServices
             return response;
         }
 
-        public static async Task<string> getAllAchTransactionReason(string token)
+        public static async Task<HttpResponseMessage> getAllAchTransactionReason(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -626,26 +595,91 @@ namespace Sample.AvaServices
                                                   new StringContent(con,
                                                   Encoding.UTF8,
                                                   "application/json"));
+            return response;
+        }
+
+        public static async Task<string> getAllAchTransactionReasonCode(HttpResponseMessage response)
+        {
             var res = await response.Content.ReadAsStringAsync();
             return JArray
                 .Parse("[" + res + "]")[0]["responseDtos"][0]["code"]
                 .ToString();
         }
-        public static async Task<string> getAllAchTransactionReasonTitle(string token)
+        public static async Task<string> getAllAchTransactionReasonTitle(HttpResponseMessage response)
+        {
+            var res = await response.Content.ReadAsStringAsync();
+            return JArray.Parse("[" + res + "]")[0]["responseDtos"][0]["description"].ToString();
+        }
+
+
+        public static async Task<HttpResponseMessage> cardHolderInquiry(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
             client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 
             var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
-                                                  ,""clientAddress"":""" + Config.clientAddress + "\"}";
+                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
+                                                  ,""channel"":""" + Config.channel + @"""
+                                                  ,""destinationPAN"":""" + Config.destinationPAN + @"""
+                                                  ,""authorizedUserInfo"":"""
+                                                  + token + "\"" +
+                                                  @",""sourcePAN"":""" + Config.pan + "\"}";
 
-            var response = await client2.PostAsync(Config.generalUrl + "getAllAchTransactionReason",
+            var response = await client2.PostAsync(Config.cardUrl + "cardHolderInquiry",
                                                   new StringContent(con,
                                                   Encoding.UTF8,
                                                   "application/json"));
+
+            return response;
+        }
+        //?
+        public static async Task<string> getApprovalCode(HttpResponseMessage response)
+        {
             var res = await response.Content.ReadAsStringAsync();
             return JArray.Parse("[" + res + "]")[0]["responseDtos"][0]["description"].ToString();
+        }
+
+        public static async Task<HttpResponseMessage> getCardsByDeposit(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
+                                                  ,""channel"":""" + Config.channel + @"""
+                                                  ,""depositNumber"":""" + Config.depositNumber + @"""
+                                                  ,""authorizedUserInfo"":"""
+                                                  + token + "\"" +
+                                                  @",""cardStatus"":""" + "OK" + @"""
+                                                  ,""offset"":""" + "1" + @"""
+                                                  ,""length"":""" + "1" + "\"}";
+
+            var response = await client2.PostAsync(Config.cardUrl + "getCardsByDeposit",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+
+            return response;
+        }
+
+        public static async Task<HttpResponseMessage> shahkar(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""identificationNumber"":""" + Config.identificationNumber + @"""
+                                                  ,""identificationType"":""" + "identificationType" + @"""
+                                                  ,""mobileNumber"":""" + Config.mobileNumber + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + "\"}";
+
+            var response = await client2.PostAsync(Config.generalUrl + "shahkar",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+
+            return response;
         }
     }
 }
