@@ -345,6 +345,7 @@ namespace Sample.AvaServices
 
             var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
                                                   ,""clientAddress"":""" + Config.clientAddress + @"""
+                                                  ,""channel"":""" + Config.channel + @""" 
                                                   ,""authorizedUserInfo"":"""
                                                   + token + "\"" +
                                                   @",""pan"":""" + Config.pan + @"""
@@ -464,6 +465,28 @@ namespace Sample.AvaServices
             return response;
         }
 
+        public static async Task<HttpResponseMessage> cardHolderInquery(string token)
+        {
+            client2.DefaultRequestHeaders.Accept.Clear();
+            client2.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var con = @"{""acceptorCode"":""" + Config.acceptorCode + @"""
+                                                  ,""clientAddress"":""" + Config.clientAddress + @"""
+                                                  ,""channel"":""" + Config.channel + @"""
+                                                  ,""authorizedUserInfo"":"""
+                                                  + token + "\"" +
+                                                  @",""destinationPAN"":""" + Config.pan + @"""
+                                                  ,""trackingNumber"":""" + Config.trackingNumber + @"""                                                  
+                                                  ,""sourcePAN"":""" + Config.pan + "\"}";
+
+            var response = await client2.PostAsync(Config.cardUrl + "cardHolderInquery",
+                                                  new StringContent(con,
+                                                  Encoding.UTF8,
+                                                  "application/json"));
+
+            return response;
+        }
+
         public static async Task<HttpResponseMessage> cardTransferOtp(string token)
         {
             client2.DefaultRequestHeaders.Accept.Clear();
@@ -504,6 +527,14 @@ namespace Sample.AvaServices
 
             return response;
         }
+
+        public static async Task<string> getApprovalCode(HttpResponseMessage response)
+        {
+            var res = await response.Content.ReadAsStringAsync();
+            return JArray.Parse("[" + res + "]")[0]["responseDtos"][0]["description"].ToString();
+        }
+
+
 
         public static async Task<HttpResponseMessage> payLoan(string token)
         {

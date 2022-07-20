@@ -27,17 +27,14 @@ namespace Sample
         public static string destinationPAN = "5057851000000000";
         //?
         public static string pin = "123456";
-        //?
-        public static string fromDate = "010101";
-        //?
-        public static string toDate = "010131";
+        public static string fromDate = "2022-04-30T00:00:00";
+        public static string toDate = "2022-04-30T00:00:00";
         public static string ticket = "123456";
         //?
         public static string approvalCode = "123456";
         //?
         public static string trackingNumber = "123456";
-        //?
-        public static string loanNumber = "123456";
+        public static string loanNumber = "101.101.1000000.101";
         //?
         public static string branchCode = "123456";
         //?
